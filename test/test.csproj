@@ -26,15 +26,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ExtraContent Include=".\resources\*.*" />
-  </ItemGroup>    
-
-  <Target Name="AfterBuild">
-    <MakeDir Directories="$(TargetDir)\resources" Condition=" !Exists('$(TargetDir\resources') " />
-    <Copy 
-        SourceFiles="@(ExtraContent)" 
-        DestinationFiles="@(ExtraContent->'$(TargetDir)\resources\%(RecursiveDir)%(Filename)%(Extension)')" 
-        SkipUnchangedFiles="true" />
-  </Target>  
+    <Content Include=".\resources\*.*">
+      <Link>resources\%(RecursiveDir)%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 
 </Project>
