@@ -4,8 +4,8 @@
     private SearchResult searchResult;
 
     public Assesment() {
-        fileContent = new FileContent();
-        searchResult = new SearchResult();
+        fileContent = FileContent.Create();
+        searchResult = SearchResult.Create();
     }
 
 	public void Start(string path) {
@@ -32,7 +32,7 @@
 
     private void ManageSearch(string searchValue) {
         ISearch search = new TextSearch();
-        var results = search.ProcessSearch(searchValue, fileContent.content);  
+        var results = search.ProcessSearch(searchValue, fileContent.GetContent());
         searchResult.AddContent(results);
         ManageSorting();
     }
@@ -43,7 +43,7 @@
             Console.WriteLine("No matches found");
             return;
         }
-        var sortedResults = sorting.ProcessSorting(searchResult.results);
+        var sortedResults = sorting.ProcessSorting(searchResult.GetResults());
         foreach(var result in sortedResults) {
             Console.WriteLine("{0} -> {1} occurrences", result.Key, result.Value);
         }        

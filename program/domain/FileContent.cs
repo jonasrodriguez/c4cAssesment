@@ -1,13 +1,17 @@
 public class FileContent {
-    public Dictionary<string, string> content {get;}
+    private Dictionary<string, string> content;
 
-    public FileContent() {
+    private FileContent() {
         content = new Dictionary<string, string>();
     }
 
-    public void AddContent(string filename, string fileContent) {
-        content.Add(filename, fileContent);
-    }   
+    public static FileContent Create() {
+        return new FileContent();
+    }
+
+    public Dictionary<string, string> GetContent() {
+        return content;
+    }
 
     public void AddContent(Dictionary<string, string> newContent) {
         foreach(var item in newContent) {

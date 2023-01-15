@@ -1,8 +1,16 @@
 public class SearchResult {
-    public Dictionary<string, int> results {get;}
+    private Dictionary<string, int> results;
 
-    public SearchResult() {
+    private SearchResult() {
         results = new Dictionary<string, int>();
+    }
+
+    public static SearchResult Create() {
+        return new SearchResult();
+    }
+
+    public Dictionary<string, int> GetResults() {
+        return results;
     }
 
     public void AddContent(Dictionary<string, int> newContent) {
@@ -17,9 +25,5 @@ public class SearchResult {
 
     public bool IsEmpty() {
         return results.Count == 0;
-    }
-
-    public int Size() {
-        return results.Count;
     }
 }
