@@ -45,7 +45,7 @@
         }
         var sortedResults = sorting.ProcessSorting(searchResult.results);
         foreach(var result in sortedResults) {
-            Console.WriteLine("{0} - {1}", result.Key, result.Value);
+            Console.WriteLine("{0} -> {1} occurrences", result.Key, result.Value);
         }        
     }        
 }
