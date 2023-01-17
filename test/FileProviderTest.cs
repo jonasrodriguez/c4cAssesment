@@ -7,8 +7,8 @@ public class FileReaderTest {
 
     [Fact]
     public void ProcessFolderFilesShould_returnFilesOnPath_AndContent() {
-        FileReader reader = new FileReader();
-        var content = reader.ProcessFolderFiles(FILE_PATH);
+        FileProvider reader = new FileProvider();
+        var content = reader.ProcessContent(FILE_PATH);
         Assert.Equal(2, content.Count);
 
         string [] files = Directory.GetFiles(FILE_PATH);
@@ -22,8 +22,8 @@ public class FileReaderTest {
 
     [Fact]
     public void ProcessFolderFilesShould_returnEmptyList_whenPathNotExist() {
-        FileReader reader = new FileReader();
-        var content = reader.ProcessFolderFiles(WRONG_PATH);
+        FileProvider reader = new FileProvider();
+        var content = reader.ProcessContent(WRONG_PATH);
         Assert.Empty(content);
     }
 }

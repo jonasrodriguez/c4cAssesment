@@ -1,51 +1,39 @@
 ﻿public class Assesment {
 
-    private FileContent fileContent;
-    private SearchResult searchResult;
-
-    public Assesment() {
-        fileContent = FileContent.Create();
-        searchResult = SearchResult.Create();
-    }
-
 	public void Start(string path) {
-		IReader reader = new FileReader();
-        var newContent = reader.ProcessFolderFiles(path);
-		fileContent.AddContent(newContent);
-		Console.WriteLine("{0} file/s read in directory {1}", fileContent.Size(), path);
-        if (!fileContent.IsEmpty()) {
-		    ProcessSearchInput();
+		IProvider reader = new FileProvider();
+        var content = reader.ProcessContent(path);
+		FolderContent folderContent = new FolderContent(content);
+		Console.WriteLine("{0} file/s read in directory {1}", folderContent.Size(), path);
+        if (!folderContent.IsEmpty()) {
+		    ProcessSearchInput(folderContent);
         }
 	}
 
-	private void ProcessSearchInput() {
+	private void ProcessSearchInput(FolderContent folderContent) {
 		while(true) {
 			Console.Write("Input search: ");
 			string? searchValue = Console.ReadLine();
             if (searchValue != null) {
-                ManageSearch(searchValue);
+                ManageSearch(folderContent, searchValue);
             }
-            searchResult.ClearContent();
             Console.WriteLine("***************");
 		}
 	}
 
-    private void ManageSearch(string searchValue) {
+    private void ManageSearch(FolderContent folderContent, string searchValue) {
         ISearch search = new TextSearch();
-        var results = search.ProcessSearch(searchValue, fileContent.GetContent());
-        searchResult.AddContent(results);
-        ManageSorting();
+        var results = search.ProcessSearch(searchValue, folderContent.GetContent());
+        printResults(results);
     }
 
-    private void ManageSorting() {
-        ISort sorting = new SortResults();
-        if (searchResult.IsEmpty()) {
+    private void printResults(List<KeyValuePair<string, int>> results) {
+        if (results.Count == 0) {
             Console.WriteLine("No matches found");
             return;
         }
-        var sortedResults = sorting.ProcessSorting(searchResult.GetResults());
-        foreach(var result in sortedResults) {
-            Console.WriteLine("{0} -> {1} occurrences", result.Key, result.Value);
-        }        
-    }        
+        for (int i = 0; i < 10 && i < results.Count; i++) {
+            Console.WriteLine("{0} -> {1} occurrences", results[i].Key, results[i].Value);
+        }
+    }     
 }

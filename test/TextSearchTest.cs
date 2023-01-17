@@ -11,8 +11,8 @@ public class TextSearchTest {
         TextSearch search = new TextSearch();
         var results = search.ProcessSearch("cat", FILE_CONTENT);
         Assert.Equal(2, results.Count);
-        Assert.Equal(4, results["file1"]);
-        Assert.Equal(1, results["file2"]);
+        Assert.Equal(4, results[0].Value);
+        Assert.Equal(1, results[1].Value);
     }
 
     [Fact]
@@ -20,8 +20,7 @@ public class TextSearchTest {
         TextSearch search = new TextSearch();
         var results = search.ProcessSearch("dog", FILE_CONTENT);
         Assert.Single(results);
-        Assert.Equal(1, results["file1"]);
-        Assert.False(results.ContainsKey("file2"));
+        Assert.Equal(1, results[0].Value);        
     }
 
     [Fact]

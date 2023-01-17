@@ -1,22 +1,13 @@
-public class FileContent {
+public class FolderContent {
+
     private Dictionary<string, string> content;
 
-    private FileContent() {
-        content = new Dictionary<string, string>();
-    }
-
-    public static FileContent Create() {
-        return new FileContent();
+    public FolderContent(Dictionary<string, string> content) {
+        this.content = content;
     }
 
     public Dictionary<string, string> GetContent() {
         return content;
-    }
-
-    public void AddContent(Dictionary<string, string> newContent) {
-        foreach(var item in newContent) {
-            content.Add(item.Key, item.Value);
-        }
     }
 
     public bool IsEmpty() {
